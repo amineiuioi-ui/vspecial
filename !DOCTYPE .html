@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Hinoki 🌹</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300;500&display=swap');
+        
+        body { font-family: 'Quicksand', sans-serif; background: #fff5f5; overflow-x: hidden; scroll-behavior: smooth; }
+        .cursive { font-family: 'Dancing Script', cursive; }
+        
+        .floating-img {
+            position: fixed; width: 140px; border: 4px solid white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); z-index: -1;
+            opacity: 0.5; animation: float 25s infinite linear;
+            border-radius: 10px;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(110vh) rotate(0deg); }
+            100% { transform: translateY(-20vh) rotate(360deg); }
+        }
+
+        #no-btn { transition: all 0.2s ease; position: absolute; }
+        .hidden-content { display: none; }
+        
+        #password-screen {
+            position: fixed; inset: 0; background: #ffe4e6;
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; z-index: 100;
+        }
+
+        .timer-box { background: rgba(255, 255, 255, 0.8); backdrop-blur: md; padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 2px solid #fbcfe8; }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div id="password-screen">
+        <h2 class="text-3xl cursive text-pink-600 mb-6">A Secret for Hinoki...</h2>
+        <p class="mb-4 text-pink-400">Enter our secret code to enter:</p>
+        <input type="password" id="pass-input" placeholder="Password..." class="p-3 rounded-lg border-2 border-pink-300 focus:outline-pink-500 mb-4 text-center">
+        <button onclick="checkPassword()" class="px-8 py-2 bg-pink-500 text-white rounded-full hover:bg-pink-600 transition shadow-lg">Open 🔑</button>
+        <p id="pass-error" class="mt-4 text-red-500 hidden text-center">That's not it, silly! <br> Hint: its friv. +my birthday and yours 💙</p>
+    </div>
+
+    <audio id="bg-music" loop><source src="song.mp3" type="audio/mpeg"></audio>
+    <audio id="voice-note"><source src="voicemessage.mp3" type="audio/mpeg"></audio>
+
+    <script>
+        const imgs = [1,2,3,4,5,6,8,9,10,11,12,13,14,15,16];
+        imgs.forEach((n, i) => {
+            document.write(`<img src="${n}.jpeg" class="floating-img" style="left: ${Math.random()*90}%; animation-delay: ${i*2}s;">`);
+        });
+    </script>
+
+    <div id="main-content" class="hidden-content">
+        
+        <section class="min-h-screen flex flex-col items-center justify-center text-center p-6 bg-white/30 backdrop-blur-sm">
+            <div class="relative w-64 h-64 mb-6 rounded-full border-8 border-white shadow-2xl overflow-hidden">
+                <img src="7.jpeg" alt="My Beautiful Hinoki" class="w-full h-full object-cover">
+            </div>
+            <h1 class="text-5xl md:text-7xl cursive text-pink-600 mb-4">Happy Valentine's Day, Hinoki</h1>
+            
+            <div class="timer-box mt-6">
+                <p class="text-pink-500 font-bold mb-2">We've been together for:</p>
+                <div id="timer" class="text-2xl font-mono text-pink-600"></div>
+            </div>
+            <p class="mt-8 text-xl text-pink-400 italic">Scroll down, my love... 💙</p>
+        </section>
+
+        <section class="flex justify-center my-10">
+            <button onclick="playVoice()" class="flex items-center gap-4 bg-white px-8 py-4 rounded-full shadow-lg border-2 border-blue-200 hover:bg-blue-50 transition active:scale-95">
+                <span class="text-3xl">🔊</span>
+                <div class="text-left">
+                    <p class="font-bold text-blue-600">Play My Message</p>
+                    <p class="text-xs text-gray-500">For your ears only</p>
+                </div>
+            </button>
+        </section>
+
+        <section class="max-w-2xl mx-auto my-10 p-10 bg-white shadow-2xl rounded-2xl border-t-8 border-pink-500 mx-4">
+            <div class="space-y-4 text-gray-700 leading-relaxed italic">
+                <p class="text-2xl cursive text-pink-600">Happy Valentine's Day, my Hinoki.</p>
+                <p>Since October 2024, my life has been so much brighter. Two years with you, and somehow my heart still races the same way it did in the beginning. Your big brown eyes still undo me every time they look at me. The way your curly hair frames your face, the way your energy fills every room — you don't just walk into my life, you light it up.</p>
+                <p>I love how alive you are. How easily you feel things, how quickly you get excited, how you stay up too late with me even when we both know we shouldn't. Those nights mean more to me than I can ever explain.</p>
+                <p>Our cinema dates will always be my favorite memories. Sitting next to you in the dark, stealing glances at you instead of the screen... it was never just about the movie. It was about us.</p>
+                <p class="text-xl font-bold">You are not just my love. You are my home.</p>
+                <p class="pt-4 font-bold cursive text-2xl text-pink-600">Forever yours, 💙</p>
+            </div>
+        </section>
+
+        <section class="max-w-md mx-auto my-20 text-center p-8 bg-white/60 rounded-3xl shadow-xl border-2 border-pink-100 mx-4">
+            <h3 class="text-2xl cursive text-pink-600 mb-4">Why I Love You...</h3>
+            <div id="reason-text" class="h-24 flex items-center justify-center text-xl italic text-gray-700 px-4 font-medium">Click to see a reason</div>
+            <button onclick="newReason()" class="mt-4 px-8 py-3 bg-blue-400 text-white rounded-full hover:bg-blue-500 shadow-md transition-all active:scale-90">Show Another Reason 💙</button>
+        </section>
+
+        <section class="max-w-xl mx-auto my-20 p-8 bg-pink-100 rounded-3xl shadow-inner text-center mx-4">
+            <h2 class="text-3xl cursive mb-6 text-pink-600">The "You" Quiz</h2>
+            <div id="quiz-box">
+                <p id="question-text" class="text-xl font-medium mb-6"></p>
+                <div id="options" class="grid grid-cols-1 gap-3"></div>
+            </div>
+        </section>
+
+        <section class="relative h-screen flex flex-col items-center justify-center text-center">
+            <h2 class="text-4xl cursive text-pink-600 mb-12">Will you be my Valentine forever?</h2>
+            <div class="flex gap-10">
+                <button onclick="finalCelebrate()" class="px-10 py-4 bg-green-500 text-white rounded-xl text-2xl font-bold shadow-lg transform hover:scale-110 transition">YES!</button>
+                <button id="no-btn" onmouseover="moveButton()" class="px-10 py-4 bg-red-500 text-white rounded-xl text-2xl font-bold shadow-lg">No</button>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const music = document.getElementById('bg-music');
+        const voice = document.getElementById('voice-note');
+        const passInput = document.getElementById('pass-input');
+
+        // UPDATED REASONS
+        const reasons = [
+            "Your absolute beauty.",
+            "How cute you are (especially because you're short).",
+            "How incredibly smart you are.",
+            "The way you're scary in the cutest way possible.",
+            "How naturally cute you are in everything you do.",
+            "How amazing and good you are with kids.",
+            "The way you truly care about me."
+        ];
+
+        // UPDATED QUIZ (ABOUT HER)
+        const questions = [
+            { q: "Where was your first date?", a: "Cinema", options: ["The Park", "Cinema", "A Cafe"] },
+            { q: "What is your favorite color?", a: "Blue", options: ["Red", "Blue", "Pink"] },
+            { q: "What is your favorite snack?", a: "EYO", options: ["Chips", "EYO", "Cookies"] },
+            { q: "What is your favorite food?", a: "Spaghetti", options: ["Pizza", "Spaghetti", "Burgers"] },
+            { q: "What is your favorite hobby?", a: "Dancing", options: ["Reading", "Gaming", "Dancing"] },
+            { q: "What is your favorite animal?", a: "Cats", options: ["Dogs", "Cats", "Bunnies"] }
+        ];
+
+        let currentQ = 0;
+
+        function checkPassword() {
+            if(passInput.value.trim() === "friv.2347") {
+                document.getElementById('password-screen').style.display = 'none';
+                document.getElementById('main-content').classList.remove('hidden-content');
+                music.play().catch(e => console.log("User interaction required"));
+                startTimer();
+                loadQuestion();
+            } else {
+                document.getElementById('pass-error').classList.remove('hidden');
+            }
+        }
+
+        // TIMER LOGIC (October 25, 2024)
+        function startTimer() {
+            const startDate = new Date("October 25, 2024 00:00:00").getTime();
+            setInterval(() => {
+                const now = new Date().getTime();
+                const diff = now - startDate;
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const secs = Math.floor((diff % (1000 * 60)) / 1000);
+                document.getElementById("timer").innerHTML = `${days}d ${hours}h ${mins}m ${secs}s`;
+            }, 1000);
+        }
+
+        function playVoice() {
+            music.volume = 0.2; // Lower bg music
+            voice.play();
+            voice.onended = () => { music.volume = 1.0; }; // Restore bg music
+        }
+
+        function newReason() {
+            const r = reasons[Math.floor(Math.random() * reasons.length)];
+            document.getElementById('reason-text').innerText = r;
+        }
+
+        function loadQuestion() {
+            if(currentQ >= questions.length) {
+                document.getElementById('quiz-box').innerHTML = "<p class='text-4xl cursive text-pink-600'>good girl <3</p>";
+                return;
+            }
+            const q = questions[currentQ];
+            document.getElementById('question-text').innerText = q.q;
+            const optionsDiv = document.getElementById('options');
+            optionsDiv.innerHTML = '';
+            q.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.innerText = opt;
+                btn.className = "bg-white p-4 rounded-xl border-2 border-pink-200 hover:bg-pink-200 transition font-medium";
+                btn.onclick = () => {
+                    if(opt === q.a) { currentQ++; loadQuestion(); }
+                    else { alert("Wrong! Try again! 💙"); }
+                };
+                optionsDiv.appendChild(btn);
+            });
+        }
+
+        function moveButton() {
+            const btn = document.getElementById('no-btn');
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+        }
+
+        function finalCelebrate() {
+            const end = Date.now() + (5 * 1000);
+            const colors = ['#3b82f6', '#ffffff', '#60a5fa']; // Blue and white
+
+            (function frame() {
+                confetti({
+                    particleCount: 4,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: colors,
+                    shapes: ['heart']
+                });
+                confetti({
+                    particleCount: 4,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: colors,
+                    shapes: ['heart']
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+            
+            setTimeout(() => {
+                alert("I KNEW IT! Happy Valentine's Day, Hinoki! 💙💙💙");
+                document.body.style.backgroundColor = "#ff0080";
+            }, 500);
+        }
+
+        passInput.addEventListener("keypress", (e) => { if(e.key === "Enter") checkPassword(); });
+    </script>
+</body>
+</html>
